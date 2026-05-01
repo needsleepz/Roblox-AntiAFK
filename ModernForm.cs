@@ -519,7 +519,8 @@ internal class ModernForm : Form
                     if (w.IsMinimized) w.Restore();
                     w.Activate();
                     await Task.Delay(_intDly);
-                    await _kp.PressSpaceAsync();
+                    if (_s.ActionType == ActionTypeEnum.Jump) await _kp.PressSpaceAsync();
+                    else await _kp.MoveCameraAsync();
                     await Task.Delay(_intDly);
                 }
             }
