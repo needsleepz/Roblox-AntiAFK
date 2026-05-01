@@ -1,0 +1,14 @@
+# === Roblox-AntiAFK ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.user
+*.suo
+bin/
+obj/
+publish/
+*.log
+*.bak
+*.old
+*.tmp

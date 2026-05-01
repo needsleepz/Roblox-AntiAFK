@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>normal.ico</ApplicationIcon>
+    <AssemblyTitle>Roblox-AntiAFK</AssemblyTitle>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>NeedSleep.Dev</Authors>
+    <Product>Roblox-AntiAFK</Product>
+    <Description>Modern tray program to stay AFK in Roblox, with Multi-instances support.
+Forked and improved from JunkBeat/AntiAFK-Roblox.</Description>
+    <Copyright>Copyright © 2026 NeedSleep.Dev — Based on original work by JunkBeat (Ambigram)</Copyright>
+    <PackageProjectUrl>https://github.com/needsleepz/Roblox-AntiAFK</PackageProjectUrl>
+    <PackageIcon></PackageIcon>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <Title>Roblox-AntiAFK</Title>
+    <Company>NeedSleep.Dev</Company>
+    <RepositoryUrl>https://github.com/needsleepz/Roblox-AntiAFK</RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageReleaseNotes>Complete UI overhaul, performance improvements, and bug fixes.</PackageReleaseNotes>
+    <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="normal.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="running.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="stop.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
