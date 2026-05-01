@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal EnableExtensions DisableDelayedExpansion
 chcp 65001 >nul
 title Roblox-AntiAFK - Git Bootstrap
