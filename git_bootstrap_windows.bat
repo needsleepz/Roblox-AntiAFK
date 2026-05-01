@@ -1,7 +1,7 @@
 @echo off
-setlocal EnableExtensions DisableDelayedExpansion
+setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
-title Git Bootstrap Auto Remote
+title Git Bootstrap Auto Remote Fixed
 
 set "GITHUB_OWNER=needsleepz"
 set "DEFAULT_NAME=needsleepz"
@@ -11,7 +11,7 @@ for %%I in ("%CD%") do set "FOLDER_NAME=%%~nxI"
 set "AUTO_REMOTE=https://github.com/%GITHUB_OWNER%/%FOLDER_NAME%.git"
 
 echo ============================================================
-echo  Git Bootstrap Auto Remote for Windows
+echo  Git Bootstrap Auto Remote for Windows - FIXED
 echo  Run this file inside your project root folder.
 echo  It auto-guesses GitHub remote from the folder name.
 echo  It will NOT force push and will NOT delete your files.
@@ -32,8 +32,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-set /p CONFIRM=Use this folder as the Git project root? Type Y to continue: 
-if /I not "%CONFIRM%"=="Y" (
+set /p "CONFIRM=Use this folder as the Git project root? Type Y to continue: "
+if /I not "!CONFIRM!"=="Y" (
     echo Cancelled.
     pause
     exit /b 0
@@ -56,14 +56,14 @@ git branch -M main >nul 2>nul
 
 echo.
 echo [2/8] Setting Git identity for this project...
-set /p GIT_NAME=Git user.name [%DEFAULT_NAME%]: 
-if "%GIT_NAME%"=="" set "GIT_NAME=%DEFAULT_NAME%"
+set /p "GIT_NAME=Git user.name [%DEFAULT_NAME%]: "
+if "!GIT_NAME!"=="" set "GIT_NAME=%DEFAULT_NAME%"
 
-set /p GIT_EMAIL=Git user.email [%DEFAULT_EMAIL%]: 
-if "%GIT_EMAIL%"=="" set "GIT_EMAIL=%DEFAULT_EMAIL%"
+set /p "GIT_EMAIL=Git user.email [%DEFAULT_EMAIL%]: "
+if "!GIT_EMAIL!"=="" set "GIT_EMAIL=%DEFAULT_EMAIL%"
 
-git config user.name "%GIT_NAME%"
-git config user.email "%GIT_EMAIL%"
+git config user.name "!GIT_NAME!"
+git config user.email "!GIT_EMAIL!"
 git config core.autocrlf false
 
 echo.
@@ -188,16 +188,17 @@ echo Git status:
 git status --short
 echo.
 
-set /p DO_COMMIT=Create a commit now? Type Y to commit: 
-if /I "%DO_COMMIT%"=="Y" (
-    set /p COMMIT_MSG=Commit message [Initial project snapshot]: 
-    if "%COMMIT_MSG%"=="" set "COMMIT_MSG=Initial project snapshot"
+set /p "DO_COMMIT=Create a commit now? Type Y to commit: "
+if /I "!DO_COMMIT!"=="Y" (
+    set /p "COMMIT_MSG=Commit message [Initial project snapshot]: "
+    if "!COMMIT_MSG!"=="" set "COMMIT_MSG=Initial project snapshot"
 
     git diff --cached --quiet
     if not errorlevel 1 (
         echo Nothing staged to commit.
     ) else (
-        git commit -m "%COMMIT_MSG%"
+        echo Committing with message: !COMMIT_MSG!
+        git commit -m "!COMMIT_MSG!"
         if errorlevel 1 (
             echo [ERROR] Commit failed.
             pause
@@ -213,20 +214,20 @@ echo [8/8] Auto GitHub remote / push
 echo Suggested remote:
 echo %AUTO_REMOTE%
 echo.
-set /p REMOTE_URL=Remote URL [Enter = use suggested, N = skip, or paste custom URL]: 
+set /p "REMOTE_URL=Remote URL [Enter = use suggested, N = skip, or paste custom URL]: "
 
-if /I "%REMOTE_URL%"=="N" (
+if /I "!REMOTE_URL!"=="N" (
     echo Skipped remote setup.
     goto :done
 )
 
-if "%REMOTE_URL%"=="" set "REMOTE_URL=%AUTO_REMOTE%"
+if "!REMOTE_URL!"=="" set "REMOTE_URL=%AUTO_REMOTE%"
 
 git remote get-url origin >nul 2>nul
 if errorlevel 1 (
-    git remote add origin "%REMOTE_URL%"
+    git remote add origin "!REMOTE_URL!"
 ) else (
-    git remote set-url origin "%REMOTE_URL%"
+    git remote set-url origin "!REMOTE_URL!"
 )
 
 echo.
@@ -237,11 +238,11 @@ echo Push options:
 echo   1 = git push -u origin main
 echo   2 = git push -u origin main:recovered-local
 echo   0 = skip push
-set /p PUSH_OPT=Choose [0/1/2]: 
+set /p "PUSH_OPT=Choose [0/1/2]: "
 
-if "%PUSH_OPT%"=="1" (
+if "!PUSH_OPT!"=="1" (
     git push -u origin main
-) else if "%PUSH_OPT%"=="2" (
+) else if "!PUSH_OPT!"=="2" (
     git push -u origin main:recovered-local
 ) else (
     echo Skipped push.

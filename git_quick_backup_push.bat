@@ -1,14 +1,14 @@
 @echo off
-setlocal EnableExtensions DisableDelayedExpansion
+setlocal EnableExtensions EnableDelayedExpansion
 chcp 65001 >nul
-title Git Quick Backup Push Auto Remote
+title Git Quick Backup Push Auto Remote Fixed
 
 set "GITHUB_OWNER=needsleepz"
 for %%I in ("%CD%") do set "FOLDER_NAME=%%~nxI"
 set "AUTO_REMOTE=https://github.com/%GITHUB_OWNER%/%FOLDER_NAME%.git"
 
 echo ============================================================
-echo  Git Quick Backup + Push Auto Remote
+echo  Git Quick Backup + Push Auto Remote - FIXED
 echo  Runs:
 echo    git status
 echo    git add .
@@ -31,7 +31,7 @@ if not exist ".git" (
     echo [ERROR] This folder is not a Git repository.
     echo Current folder:
     echo %CD%
-    echo Run git_bootstrap_auto_remote.bat first.
+    echo Run git_bootstrap_auto_remote_fixed.bat first.
     pause
     exit /b 1
 )
@@ -74,17 +74,17 @@ if errorlevel 1 (
     echo Suggested remote:
     echo %AUTO_REMOTE%
     echo.
-    set /p REMOTE_URL=Remote URL [Enter = use suggested, N = skip push, or paste custom URL]: 
+    set /p "REMOTE_URL=Remote URL [Enter = use suggested, N = skip push, or paste custom URL]: "
 
-    if /I "%REMOTE_URL%"=="N" (
+    if /I "!REMOTE_URL!"=="N" (
         echo Skipped remote setup and push.
         pause
         exit /b 0
     )
 
-    if "%REMOTE_URL%"=="" set "REMOTE_URL=%AUTO_REMOTE%"
+    if "!REMOTE_URL!"=="" set "REMOTE_URL=%AUTO_REMOTE%"
 
-    git remote add origin "%REMOTE_URL%"
+    git remote add origin "!REMOTE_URL!"
     if errorlevel 1 (
         echo [ERROR] Failed to add remote origin.
         pause
