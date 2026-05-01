@@ -42,3 +42,7 @@ blob-report/
 *.old
 *.tmp
 *.backup
+
+# Local Git helper scripts
+git_bootstrap*.bat
+git_quick_backup*.bat
